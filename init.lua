@@ -11,7 +11,7 @@ local cmp = require('cmp')
 cmp.setup({
     snippet = {
         expand = function(args)
-            vim.snippet.expand(args.body) 
+            vim.snippet.expand(args.body)
         end
     },
     mapping = cmp.mapping.preset.insert({
@@ -64,12 +64,6 @@ vim.lsp.config('clangd', {
     root_markers = { 'compile_commands.json', 'compile_flags.txt', '.git' },
 })
 
-vim.lsp.config('dartls', {
-    cmd = { 'dart', 'language-server', '--protocol=lsp' },
-    filetypes = { 'dart' },
-    root_markers = { 'pubspec.yaml', '.git' },
-})
-
 vim.lsp.config('luals', {
     cmd = { 'lua-language-server' },
     filetypes = { 'lua' },
@@ -99,7 +93,6 @@ vim.lsp.enable('pylsp')
 vim.lsp.enable('c-sharp')
 vim.lsp.enable('jsonls')
 vim.lsp.enable('clangd')
-vim.lsp.enable('dartls')
 vim.lsp.enable('luals')
 vim.lsp.enable('cmakels')
 vim.lsp.enable('markdownls')
@@ -258,6 +251,37 @@ vim.keymap.set('n', '<C-n>', '<cmd>Neotree toggle<CR>')
 vim.keymap.set('n', '<M-n>', '<cmd>Neotree focus<CR>')
 -- // end file explorer
 
+-- || auto-session || - save and restore sessions per cwd
+vim.pack.add({ 'https://github.com/rmagatti/auto-session' })
+
+vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
+
+require('auto-session').setup({
+    suppressed_dirs = { '~/', '~/Downloads', '/' },
+    pre_save_cmds = { 'Neotree close' },
+    post_save_cmds = { 'Neotree show' },
+    post_restore_cmds = { 'Neotree show' }
+})
+-- // end auto-session
+
+-- || flutter tools || - flutter and dart dev commands over the native lsp
+vim.pack.add({ 'https://github.com/nvim-flutter/flutter-tools.nvim' })
+
+require('flutter-tools').setup({
+    lsp = {
+        capabilities = require('cmp_nvim_lsp').default_capabilities(),
+        on_attach = function(_, bufnr)
+            local o = { buffer = bufnr }
+            vim.keymap.set('n', '<C-j>', '<cmd>FlutterRun<CR>', o)
+            vim.keymap.set('n', '<C-l>', '<cmd>FlutterReload<CR>', o)
+            vim.keymap.set('n', '<C-k>', '<cmd>FlutterRestart<CR>', o)
+            vim.keymap.set('n', '<C-y>', '<cmd>FlutterQuit<CR>', o)
+            vim.keymap.set('n', '<C-g>', '<cmd>FlutterDevices<CR>', o)
+        end
+    }
+})
+-- // end flutter tools
+
 -- || lualine || - statusline with mode, branch, filename, filetype
 vim.pack.add({ 'https://github.com/nvim-lualine/lualine.nvim' })
 
@@ -307,16 +331,15 @@ require('lualine').setup({
 })
 -- // end lualine
 
--- || barbar || - buffer tabs across the top
-vim.g.barbar_auto_setup = false
-vim.pack.add({ 'https://github.com/romgrk/barbar.nvim' })
+-- || bufferline || - buffer tabs across the top
+vim.pack.add({ 'https://github.com/akinsho/bufferline.nvim' })
 
-require('barbar').setup({
-    maximum_length = 20,
-    maximum_padding = 1,
-    minimum_padding = 1
+require('bufferline').setup({
+    options = {
+        max_name_length = 20
+    }
 })
--- // end barbar
+-- // end bufferline
 
 -- || clipboard history || - neoclip yank history via telescope
 vim.pack.add({ 'https://github.com/nvim-telescope/telescope.nvim' })

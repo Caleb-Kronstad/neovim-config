@@ -4,9 +4,17 @@
       "rev": "98d3c0fdeb983f0ef62fe3a49da440f6d2c045ce",
       "src": "https://github.com/skywind3000/asyncrun.vim"
     },
+    "auto-session": {
+      "rev": "6cde3874a9283c2db55627acca5f28e4fa402320",
+      "src": "https://github.com/rmagatti/auto-session"
+    },
     "barbar.nvim": {
       "rev": "337ecfadb8bf005050990bf2f624dc4fc828dabd",
       "src": "https://github.com/romgrk/barbar.nvim"
+    },
+    "bufferline.nvim": {
+      "rev": "655133c3b4c3e5e05ec549b9f8cc2894ac6f51b3",
+      "src": "https://github.com/akinsho/bufferline.nvim"
     },
     "cmp-nvim-lsp": {
       "rev": "cbc7b02bb99fae35cb42f514762b89b5126651ef",
@@ -19,6 +27,10 @@
     "edge": {
       "rev": "7ec78c21bd8f0b2b0b47043bb1e730c561647c72",
       "src": "https://github.com/sainnhe/edge"
+    },
+    "flutter-tools.nvim": {
+      "rev": "7d1acfd139215e02d2784733af69a61aaebe06e8",
+      "src": "https://github.com/nvim-flutter/flutter-tools.nvim"
     },
     "gitsigns.nvim": {
       "rev": "31d6fb2d618bca1482b9f274751ead5f03461408",
